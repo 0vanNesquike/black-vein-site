@@ -11,7 +11,8 @@
     <header class="fade-in">
         <h1 class="logo">BLACK VEIN</h1>
         <p class="tagline">Приходи с идеей — уходи с искусством</p>
-        <button class="btn-main">Записаться</button>
+        <p class="stats">Тату-студия в Москве · 10+ лет опыта · 3000+ работ</p>
+        <button class="btn-main" onclick="openBookingModal()">Записаться</button>
     </header>
 
     <hr class="fade-in">
@@ -62,6 +63,14 @@
                         <img src="assets/gallery/10.jpg" alt="Работа 10" onclick="openLightbox(this.src)">
                         <div class="slide-caption">Портрет</div>
                     </div>
+                    <div class="slide">
+                        <img src="assets/gallery/11.jpg" alt="Работа 11" onclick="openLightbox(this.src)">
+                        <div class="slide-caption">Блэкворк</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/gallery/12.jpg" alt="Работа 12" onclick="openLightbox(this.src)">
+                        <div class="slide-caption">Чикано</div>
+                    </div>
                 </div>
             </div>
             <button class="slider-btn next-btn" onclick="nextSlide()">❯</button>
@@ -74,15 +83,15 @@
     <section id="masters" class="slide-up">
         <h2>НАШИ МАСТЕРА</h2>
         <div class="masters-grid">
-            <div class="master-card" onclick="openMaster('Влад', '34 года, мастер татуировки с 10-летним стажем. Начинал как художник-график, закончил МГАХИ имени Сурикова. Специализируется на реализме, черно-белой графике и портретах. Участник международных тату-конвенций в Москве, Санкт-Петербурге и Берлине. Работы Владислава отличаются филигранной проработкой деталей и глубиной теней. Любимые стили — реализм, графика, дотворк. Работает как с цветными, так и с черно-белыми эскизами. Среднее время работы над одним рукавом — 3-4 сеанса. Индивидуальный подход к каждому клиенту, помогает с выбором эскиза и места нанесения.', 'assets/masters/vlad.jpg')">
+            <div class="master-card" onclick="openMaster('Влад', 'Мастер реализма и графики. Стаж более 10 лет. Участник международных тату-конвенций.', 'assets/masters/vlad.jpg')">
                 <img src="assets/masters/vlad.jpg" alt="Влад">
                 <div class="master-name">Влад</div>
             </div>
-            <div class="master-card" onclick="openMaster('Артём', '28 лет, мастер с 6-летним опытом. Профессионально занимается японской татуировкой (ирэдзуми) и олдскулом. Стажировался в тату-студии Токио, перенял традиционные японские техники. Отлично работает с сюжетными композициями, карпами кои, сакурой, драконами и волнами. Также специализируется на классическом олдскуле — якоря, ласточки, черепа, розы и ножи. Использует только качественные американские и японские красители. Предпочитает насыщенные цвета и четкие контуры. Средняя скорость работы — средняя, но с идеальной заливкой. Все эскизы рисует сам, может переработать любую идею клиента в своем стиле.', 'assets/masters/artem.jpg')">
+            <div class="master-card" onclick="openMaster('Артём', 'Специалист по японской татуировке и олдскулу. Стажировался в Токио.', 'assets/masters/artem.jpg')">
                 <img src="assets/masters/artem.jpg" alt="Артём">
                 <div class="master-name">Артём</div>
             </div>
-            <div class="master-card" onclick="openMaster('Вика', '25 лет, мастер с 4-летним стажем, выпускница Британской высшей школы дизайна. Специализируется на тонких женских татуировках — флористика, ботаника, нежные миниатюры, акварель и геометрия. Отлично работает с мелкими деталями, тонкими линиями и деликатным затенением. Создает атмосферные эскизы с растениями, цветами, насекомыми, перьями и абстрактными узорами. Предпочитает черно-белую гамму, но также использует приглушенные природные оттенки — оливковый, терракотовый, индиго. Делает скрытые татуировки за ушами, на ребрах, запястьях и щиколотках. Среднее время небольшой татуировки — 1-2 часа. Может зарисовать любой природный элемент с фотографии или придумать уникальный дизайн. В работе использует только одноразовые иглы и стерильные расходники.', 'assets/masters/vika.jpg')">
+            <div class="master-card" onclick="openMaster('Вика', 'Тонкие линии, флористика и нежные миниатюры. Выпускница Британской высшей школы дизайна.', 'assets/masters/vika.jpg')">
                 <img src="assets/masters/vika.jpg" alt="Вика">
                 <div class="master-name">Вика</div>
             </div>
@@ -93,7 +102,12 @@
 
     <section id="booking" class="slide-up">
         <h2>ЗАПИСЬ НА СЕАНС</h2>
-        <form class="booking-form">
+        <div class="trust-badge">
+            <div class="trust-item">✅ Стерильное оборудование</div>
+            <div class="trust-item">✅ Одноразовые иглы</div>
+            <div class="trust-item">✅ Консультация бесплатно</div>
+        </div>
+        <form class="booking-form" id="bookingForm">
             <input type="text" placeholder="Ваше имя" required>
             <input type="text" placeholder="Телефон / Телеграм" required>
             <textarea placeholder="Комментарий" rows="4"></textarea>
@@ -121,6 +135,20 @@
                 <h3 id="master-title"></h3>
                 <p id="master-text"></p>
             </div>
+        </div>
+    </div>
+
+    <div id="bookingModal" class="modal" onclick="closeBookingModal()">
+        <span class="close" onclick="closeBookingModal()">&times;</span>
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h3 style="color: #cc0000; margin-bottom: 20px;">Запись на сеанс</h3>
+            <form id="quickBookingForm" style="display: flex; flex-direction: column; gap: 15px;">
+                <input type="text" placeholder="Ваше имя" required style="background: #333; border: 1px solid #555; color: white; padding: 12px; border-radius: 8px;">
+                <input type="text" placeholder="Телефон / Телеграм" required style="background: #333; border: 1px solid #555; color: white; padding: 12px; border-radius: 8px;">
+                <textarea placeholder="Комментарий" rows="4" style="background: #333; border: 1px solid #555; color: white; padding: 12px; border-radius: 8px;"></textarea>
+                <button type="submit" class="btn-submit" style="margin-top: 10px;">Отправить</button>
+            </form>
+            <p id="bookingSuccess" style="display: none; color: #00ff00; margin-top: 20px;">✅ Спасибо! Мы свяжемся с вами в ближайшее время.</p>
         </div>
     </div>
 

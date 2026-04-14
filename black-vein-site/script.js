@@ -3,6 +3,9 @@ const modalImg = document.getElementById("modal-img");
 const modalDesc = document.getElementById("modal-desc");
 const masterTitle = document.getElementById("master-title");
 const masterText = document.getElementById("master-text");
+const bookingModal = document.getElementById("bookingModal");
+const quickBookingForm = document.getElementById("quickBookingForm");
+const bookingSuccess = document.getElementById("bookingSuccess");
 
 function openLightbox(src) {
     modal.style.display = "flex";
@@ -25,8 +28,23 @@ function closeModal() {
     document.body.style.overflow = "";
 }
 
+function openBookingModal() {
+    bookingModal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+    if (bookingSuccess) bookingSuccess.style.display = "none";
+    if (quickBookingForm) quickBookingForm.reset();
+}
+
+function closeBookingModal() {
+    bookingModal.style.display = "none";
+    document.body.style.overflow = "";
+}
+
 window.addEventListener('keydown', (e) => {
-    if (e.key === "Escape") closeModal();
+    if (e.key === "Escape") {
+        closeModal();
+        closeBookingModal();
+    }
 });
 
 modal.addEventListener('click', function(e) {
@@ -35,14 +53,45 @@ modal.addEventListener('click', function(e) {
     }
 });
 
+if (bookingModal) {
+    bookingModal.addEventListener('click', function(e) {
+        if (e.target === bookingModal) {
+            closeBookingModal();
+        }
+    });
+}
+
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slide');
 const totalSlides = slides.length;
 const sliderTrack = document.getElementById('sliderTrack');
 const dotsContainer = document.getElementById('sliderDots');
+let slidesPerView = 1;
+
+function updateSlidesPerView() {
+    if (window.innerWidth >= 1024) {
+        slidesPerView = 3;
+    } else if (window.innerWidth >= 768) {
+        slidesPerView = 2;
+    } else {
+        slidesPerView = 1;
+    }
+    updateSliderWidth();
+}
+
+function updateSliderWidth() {
+    const slideWidth = 100 / slidesPerView;
+    slides.forEach(slide => {
+        slide.style.width = `${slideWidth}%`;
+    });
+    updateSlider();
+}
 
 function createDots() {
-    for (let i = 0; i < totalSlides; i++) {
+    if (!dotsContainer) return;
+    dotsContainer.innerHTML = '';
+    const totalDots = Math.ceil(totalSlides / slidesPerView);
+    for (let i = 0; i < totalDots; i++) {
         const dot = document.createElement('div');
         dot.classList.add('dot');
         if (i === 0) dot.classList.add('active');
@@ -57,19 +106,24 @@ function goToSlide(index) {
 }
 
 function nextSlide() {
-    currentSlide = (currentSlide + 1) % totalSlides;
+    const maxSlide = Math.ceil(totalSlides / slidesPerView) - 1;
+    currentSlide = currentSlide >= maxSlide ? 0 : currentSlide + 1;
     updateSlider();
 }
 
 function prevSlide() {
-    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    const maxSlide = Math.ceil(totalSlides / slidesPerView) - 1;
+    currentSlide = currentSlide <= 0 ? maxSlide : currentSlide - 1;
     updateSlider();
 }
 
 function updateSlider() {
-    const offset = -currentSlide * 100;
-    sliderTrack.style.transform = `translateX(${offset}%)`;
+    const offset = -(currentSlide * 100);
+    if (sliderTrack) {
+        sliderTrack.style.transform = `translateX(${offset}%)`;
+    }
 
+    const totalDots = Math.ceil(totalSlides / slidesPerView);
     document.querySelectorAll('.dot').forEach((dot, index) => {
         dot.classList.toggle('active', index === currentSlide);
     });
@@ -77,6 +131,7 @@ function updateSlider() {
 
 let autoSlideInterval;
 function startAutoSlide() {
+    if (autoSlideInterval) clearInterval(autoSlideInterval);
     autoSlideInterval = setInterval(() => {
         nextSlide();
     }, 5000);
@@ -94,10 +149,16 @@ if (sliderContainer) {
     sliderContainer.addEventListener('mouseleave', startAutoSlide);
 }
 
+window.addEventListener('resize', () => {
+    updateSlidesPerView();
+    createDots();
+});
+
+updateSlidesPerView();
 createDots();
 startAutoSlide();
 
-const bookingForm = document.querySelector('.booking-form');
+const bookingForm = document.getElementById('bookingForm');
 if (bookingForm) {
     bookingForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -106,12 +167,24 @@ if (bookingForm) {
     });
 }
 
+if (quickBookingForm) {
+    quickBookingForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        quickBookingForm.style.display = 'none';
+        if (bookingSuccess) bookingSuccess.style.display = 'block';
+        setTimeout(() => {
+            closeBookingModal();
+            quickBookingForm.style.display = 'flex';
+            quickBookingForm.reset();
+            if (bookingSuccess) bookingSuccess.style.display = 'none';
+        }, 2000);
+    });
+}
+
 const bookBtn = document.querySelector('.btn-main');
 if (bookBtn) {
     bookBtn.addEventListener('click', () => {
-        document.getElementById('booking').scrollIntoView({
-            behavior: 'smooth'
-        });
+        openBookingModal();
     });
 }
 
