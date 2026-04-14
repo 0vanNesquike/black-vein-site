@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Vein Tattoo Studio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="fade-in">
+        <h1 class="logo">BLACK VEIN</h1>
+        <p class="tagline">Приходи с идеей — уходи с искусством</p>
+        <button class="btn-main">Записаться</button>
+    </header>
+
+    <hr class="fade-in">
+
+    <section id="portfolio" class="slide-up">
+        <h2>НАШИ РАБОТЫ</h2>
+        <div class="slider-container">
+            <button class="slider-btn prev-btn" onclick="prevSlide()">❮</button>
+            <div class="slider">
+                <div class="slider-track" id="sliderTrack">
+                    <div class="slide">
+                        <img src="assets/gallery/1.jpg" alt="Работа 1" onclick="openLightbox(this.src)">
+                        <div class="slide-caption">Реализм</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/gallery/2.jpg" alt="Работа 2" onclick="openLightbox(this.src)">
+                        <div class="slide-caption">Графика</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/gallery/3.jpg" alt="Работа 3" onclick="openLightbox(this.src)">
+                        <div class="slide-caption">Олдскул</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/gallery/4.jpg" alt="Работа 4" onclick="openLightbox(this.src)">
+                        <div class="slide-caption">Японская</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/gallery/5.jpg" alt="Работа 5" onclick="openLightbox(this.src)">
+                        <div class="slide-caption">Флористика</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/gallery/6.jpg" alt="Работа 6" onclick="openLightbox(this.src)">
+                        <div class="slide-caption">Неотрадиционал</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/gallery/7.jpg" alt="Работа 7" onclick="openLightbox(this.src)">
+                        <div class="slide-caption">Черно-белое</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/gallery/8.jpg" alt="Работа 8" onclick="openLightbox(this.src)">
+                        <div class="slide-caption">Акварель</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/gallery/9.jpg" alt="Работа 9" onclick="openLightbox(this.src)">
+                        <div class="slide-caption">Полинезия</div>
+                    </div>
+                    <div class="slide">
+                        <img src="assets/gallery/10.jpg" alt="Работа 10" onclick="openLightbox(this.src)">
+                        <div class="slide-caption">Портрет</div>
+                    </div>
+                </div>
+            </div>
+            <button class="slider-btn next-btn" onclick="nextSlide()">❯</button>
+        </div>
+        <div class="slider-dots" id="sliderDots"></div>
+    </section>
+
+    <hr class="fade-in">
+
+    <section id="masters" class="slide-up">
+        <h2>НАШИ МАСТЕРА</h2>
+        <div class="masters-grid">
+            <div class="master-card" onclick="openMaster('Влад', '34 года, мастер татуировки с 10-летним стажем. Начинал как художник-график, закончил МГАХИ имени Сурикова. Специализируется на реализме, черно-белой графике и портретах. Участник международных тату-конвенций в Москве, Санкт-Петербурге и Берлине. Работы Владислава отличаются филигранной проработкой деталей и глубиной теней. Любимые стили — реализм, графика, дотворк. Работает как с цветными, так и с черно-белыми эскизами. Среднее время работы над одним рукавом — 3-4 сеанса. Индивидуальный подход к каждому клиенту, помогает с выбором эскиза и места нанесения.', 'assets/masters/vlad.jpg')">
+                <img src="assets/masters/vlad.jpg" alt="Влад">
+                <div class="master-name">Влад</div>
+            </div>
+            <div class="master-card" onclick="openMaster('Артём', '28 лет, мастер с 6-летним опытом. Профессионально занимается японской татуировкой (ирэдзуми) и олдскулом. Стажировался в тату-студии Токио, перенял традиционные японские техники. Отлично работает с сюжетными композициями, карпами кои, сакурой, драконами и волнами. Также специализируется на классическом олдскуле — якоря, ласточки, черепа, розы и ножи. Использует только качественные американские и японские красители. Предпочитает насыщенные цвета и четкие контуры. Средняя скорость работы — средняя, но с идеальной заливкой. Все эскизы рисует сам, может переработать любую идею клиента в своем стиле.', 'assets/masters/artem.jpg')">
+                <img src="assets/masters/artem.jpg" alt="Артём">
+                <div class="master-name">Артём</div>
+            </div>
+            <div class="master-card" onclick="openMaster('Вика', '25 лет, мастер с 4-летним стажем, выпускница Британской высшей школы дизайна. Специализируется на тонких женских татуировках — флористика, ботаника, нежные миниатюры, акварель и геометрия. Отлично работает с мелкими деталями, тонкими линиями и деликатным затенением. Создает атмосферные эскизы с растениями, цветами, насекомыми, перьями и абстрактными узорами. Предпочитает черно-белую гамму, но также использует приглушенные природные оттенки — оливковый, терракотовый, индиго. Делает скрытые татуировки за ушами, на ребрах, запястьях и щиколотках. Среднее время небольшой татуировки — 1-2 часа. Может зарисовать любой природный элемент с фотографии или придумать уникальный дизайн. В работе использует только одноразовые иглы и стерильные расходники.', 'assets/masters/vika.jpg')">
+                <img src="assets/masters/vika.jpg" alt="Вика">
+                <div class="master-name">Вика</div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="fade-in">
+
+    <section id="booking" class="slide-up">
+        <h2>ЗАПИСЬ НА СЕАНС</h2>
+        <form class="booking-form">
+            <input type="text" placeholder="Ваше имя" required>
+            <input type="text" placeholder="Телефон / Телеграм" required>
+            <textarea placeholder="Комментарий" rows="4"></textarea>
+            <button type="submit" class="btn-submit">Оставить заявку</button>
+        </form>
+    </section>
+
+    <hr class="fade-in">
+
+    <footer class="fade-in">
+        <h2>КОНТАКТЫ</h2>
+        <div class="footer-content">
+            <p>📍 Москва, ул. Тёмная, 13</p>
+            <div class="socials">
+                <span>IG</span> <span>VK</span> <span>TG</span>
+            </div>
+        </div>
+    </footer>
+
+    <div id="modal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <img id="modal-img" src="" alt="">
+            <div id="modal-desc">
+                <h3 id="master-title"></h3>
+                <p id="master-text"></p>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="smokeCanvas"></canvas>
+    <script src="smoke.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
